@@ -40,6 +40,9 @@
   .font-#{$i} {
     font-size: #{$i}+ "px";
   }
+  .font-w-#{$i} {
+    font-weight: #{$i};
+  }
   //custom margins
   .m-#{$i} {
     margin: #{$i} + "px" !important;
