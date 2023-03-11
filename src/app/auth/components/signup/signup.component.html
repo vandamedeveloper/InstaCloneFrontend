@@ -6,7 +6,7 @@
                         style="background-image: url('https://static.cdninstagram.com/rsrc.php/v3/yK/r/ATdtiLb2BQ9.png'); background-position: 0px 0px; background-size: 176px 181px; width: 175px; height: 51px; background-repeat: no-repeat; display: inline-block;"></i>
                 </div>
                 <div>
-                    <form class="d-flex d-flex__column">
+                    <form class="d-flex d-flex__column" [formGroup]="signupForm">
                         <h2 style="font-weight:600;line-height:2rem;"
                             class="font-17 m-t-0 m-r-40 m-b-10 m-l-40 subHeadline text-center">
                             Regístrate para ver fotos y
@@ -14,20 +14,23 @@
                         <div class="d-flex d-flex__column m-t-24">
                             <div class="m-t-0 m-l-40 m-r-40 m-b-6">
                                 <input placeholder="Usuario o correo electrónico"
-                                    class="backgroundInput w-full h-36 greyBorder inputLabel p-l-15 font-12"
-                                    type="text" />
+                                    class="backgroundInput w-full h-36 greyBorder inputLabel p-l-15 font-12" type="text"
+                                    formControlName="email" />
                             </div>
                             <div style="margin: 0 4rem .6rem;"><input placeholder="Nombre completo" type="text"
-                                    class="backgroundInput w-full h-36 greyBorder inputLabel p-l-15 font-12" />
+                                    class="backgroundInput w-full h-36 greyBorder inputLabel p-l-15 font-12"
+                                    formControlName="fullName" />
                             </div>
                             <div style="margin: 0 4rem .6rem;"><input placeholder="Nombre de usuario" type="text"
-                                    class="backgroundInput w-full h-36 greyBorder inputLabel p-l-15 font-12" />
+                                    class="backgroundInput w-full h-36 greyBorder inputLabel p-l-15 font-12"
+                                    formControlName="username" />
                             </div>
                             <div style="margin: 0 4rem .6rem;"><input placeholder="Contraseña" type="password"
-                                    class="backgroundInput w-full h-36 greyBorder inputLabel p-l-15 font-12" />
+                                    class="backgroundInput w-full h-36 greyBorder inputLabel p-l-15 font-12"
+                                    formControlName="password" />
                             </div>
                             <div class="d-flex align-items--center justify-content--center m-t-8 m-r-40 m-l-40">
-                                <button class="activeBlueActionBtn" type="submit">
+                                <button class="activeBlueActionBtn" type="submit" (click)="OnSubmit()">
                                     <div>
                                         Siguiente
                                     </div>
