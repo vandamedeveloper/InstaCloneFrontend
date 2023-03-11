@@ -17,7 +17,7 @@ export interface UserProfile {
   /**
    * Full name of the user
    */
-  name?: string;
+  fullName?: string;
 
   /**
    * Short bio of the user
