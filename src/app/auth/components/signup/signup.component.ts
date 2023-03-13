@@ -57,7 +57,6 @@ export class SignupComponent implements OnInit {
           this.error = error;
           console.log(error);
         },
-        complete: () => (this.loading = false),
       });
       // if all is okei, redirect the user --> where? we need access_token for the new created_user (??)
     }

@@ -15,7 +15,7 @@ export class UserService {
     let headers = new HttpHeaders();
     headers = headers.set(
       'Authorization',
-      `Bearer ${localStorage.getItem('token')}`
+      `Bearer ${localStorage.getItem('access_token')}`
     );
     return this._httpClient.get<UserProfile>(`${this.basePath}/users/me`, {
       headers,

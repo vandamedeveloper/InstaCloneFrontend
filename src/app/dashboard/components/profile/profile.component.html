@@ -1,0 +1,9 @@
+<div class="d-flex m-l-50 align-items--center">
+    <div style="width: 56px;height:56px;border-radius: 100%;overflow: hidden;" class="m-r-20">
+        <img [src]="user['profile'].profilePicture" style="width:100%;object-fit: cover;height: 100%;">
+    </div>
+    <div>
+        <strong class="font-14" style="font-weight: 600;">{{user['profile'].username}}</strong>
+        <p style="color:rgba(0,0,0,.6)" class="font-14 m-t-5">{{user['profile'].fullName}}</p>
+    </div>
+</div>

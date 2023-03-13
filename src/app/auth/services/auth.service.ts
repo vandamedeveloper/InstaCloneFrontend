@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { UserNetwork } from 'src/app/shared/models/UserNetwork';
 import { UserProfile } from 'src/app/shared/models/UserProfile';
 
@@ -17,6 +17,38 @@ export class AuthService {
    */
   signup(user: UserNetwork): Observable<UserProfile> {
     const url = `${this.basePath}/users/signup`;
-    return this._httpClient.post<UserProfile>(url, user);
+    return this._httpClient
+      .post<UserProfile>(url, user)
+      .pipe(
+        tap((data) =>
+          localStorage.setItem('access_token', data['access_token'])
+        )
+      );
+  }
+
+  /**
+   *  LOGIN USER
+   */
+
+  /**
+   *  RETURN TOKEN
+   */
+  getToken(): string | null {
+    return localStorage.getItem('access_token');
+  }
+
+  /**
+   *  CHECK IF USER IS AUTHENTICATED
+   */
+  isAuthenticated(): boolean {
+    const token = this.getToken();
+    return token ? true : false;
+  }
+
+  /**
+   *  REMOVE TOKEN ON LOGOUT
+   */
+  logout(): void {
+    localStorage.removeItem('access_token');
   }
 }
