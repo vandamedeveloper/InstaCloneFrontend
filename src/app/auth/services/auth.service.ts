@@ -30,6 +30,17 @@ export class AuthService {
    *  LOGIN USER
    */
 
+  login(user: UserNetwork): Observable<UserProfile> {
+    const url = `${this.basePath}/users/login`;
+    return this._httpClient
+      .post<UserProfile>(url, user)
+      .pipe(
+        tap((data) =>
+          localStorage.setItem('access_token', data['access_token'])
+        )
+      );
+  }
+
   /**
    *  RETURN TOKEN
    */

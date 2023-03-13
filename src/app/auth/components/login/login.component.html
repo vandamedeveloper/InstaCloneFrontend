@@ -6,19 +6,19 @@
                         style="background-image: url('https://static.cdninstagram.com/rsrc.php/v3/yK/r/ATdtiLb2BQ9.png'); background-position: 0px 0px; background-size: 176px 181px; width: 175px; height: 51px; background-repeat: no-repeat; display: inline-block;"></i>
                 </div>
                 <div class="w-full">
-                    <form class="d-flex d-flex__column">
+                    <form class="d-flex d-flex__column" [formGroup]="loginForm">
                         <div class="d-flex d-flex__column m-t-24">
                             <div class="m-t-0 m-l-40 m-r-40 m-b-6">
                                 <input placeholder="Usuario o correo electrónico"
-                                    class="backgroundInput w-full h-36 greyBorder inputLabel p-l-15 font-12"
-                                    type="text" />
+                                    class="backgroundInput w-full h-36 greyBorder inputLabel p-l-15 font-12" type="text"
+                                    formControlName="email" />
                             </div>
                             <div style="margin: 0 4rem .6rem;"><input placeholder="Contraseña"
                                     class="backgroundInput w-full h-36 greyBorder inputLabel p-l-15 font-12"
-                                    type="password" />
+                                    type="password" formControlName="password" />
                             </div>
                             <div class="d-flex align-items--center justify-content--center m-t-8 m-r-40 m-l-40">
-                                <button class="activeBlueActionBtn" type="submit">
+                                <button class="activeBlueActionBtn" type="submit" (click)="OnSubmit()">
                                     <div style="display: flex;justify-content: center;">
                                         Entrar
                                     </div>
