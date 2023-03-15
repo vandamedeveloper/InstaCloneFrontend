@@ -9,11 +9,22 @@ import { UserProfile } from 'src/app/shared/models/UserProfile';
 })
 export class DashboardContainerComponent implements OnInit {
   user: UserProfile;
+  showCreateModal: boolean = false;
 
   constructor(private _route: ActivatedRoute, private _router: Router) {}
 
   ngOnInit(): void {
     this.user = this._route.snapshot.data['user'];
     console.log('user: ', this.user);
+  }
+
+  showCreatePostModal(): void {
+    this.showCreateModal = true;
+  }
+  hideCreatePostModal(): void {
+    this.showCreateModal = false;
+  }
+  onMediaSelected(file: File) {
+    console.log('file selected: ', file);
   }
 }

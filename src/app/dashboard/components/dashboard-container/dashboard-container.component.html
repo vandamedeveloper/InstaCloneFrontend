@@ -45,7 +45,7 @@
                             </div>
                         </a>
                     </div>
-                    <div class="m-t-7">
+                    <div class="m-t-7" (click)="showCreatePostModal()">
                         <a href="#" style="display:inline;">
                             <div style="display: flex;align-items:center;padding:10px;border-radius: 24px;"
                                 class="create_feed_btn">
@@ -85,7 +85,7 @@
                 </div>
             </div>
         </div>
-        <div style="flex:1;display: flex;justify-content: center;" class="m-t-20">
+        <div style="flex:1;display: flex;justify-content: center;overflow: scroll;" class="m-t-20">
             <div class="posts" style="max-width: 470px;width:100%;">
                 <div>
                     <article style="border-bottom:1px solid rgb(219,219,219)">
@@ -316,3 +316,7 @@
         <app-profile [user]="user" class="m-t-20 m-r-70"></app-profile>
     </div>
 </div>
+
+
+<!-- MODALS -->
+<app-create-post *ngIf="showCreateModal" (onMediaSelected)="onMediaSelected($event)"></app-create-post>
