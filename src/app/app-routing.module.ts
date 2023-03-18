@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { TokenGuard } from './auth/guards/token.guard';
+import { PostResolver } from './dashboard/resolvers/post.resolver';
 import { UserResolver } from './shared/resolvers/user.resolver';
 
 const routes: Routes = [
@@ -18,6 +19,9 @@ const routes: Routes = [
         children: [
           {
             path: '',
+            resolve: {
+              posts: PostResolver,
+            },
             loadChildren: () =>
               import('./dashboard/dashboard.module').then(
                 (m) => m.DashboardModule

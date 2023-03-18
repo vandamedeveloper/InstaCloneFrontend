@@ -1,7 +1,7 @@
-<div
-    style="position:absolute;top:0;left:0;display:flex;align-items:center;justify-content:center;background-color:rgba(0,0,0,0.6);width:100vw;height:100vh;padding:0;margin:0;box-sizing: border-box;">
+<div [formGroup]="form"
+    style="position:absolute;top:0;left:0;display:flex;align-items:center;justify-content:center;background-color:rgba(0,0,0,0.6);width:100vw;height:100vh;padding:0;margin:0;box-sizing: border-box;transition: width .2s ease-in-out;">
     <div *ngIf="!fileSelected"
-        style="width:100%;background-color: #fff;border:1px solid white;max-width: 640px;max-height: 600px;height:100%;border-radius: 8px;">
+        style="width:100%;background-color: #fff;max-width: 640px;max-height: 600px;height:100%;border-radius: 8px;">
         <div class="first_page" style="width:100%;height:100%;">
             <header
                 style="height: 48px;display: flex;align-items: center;justify-content: center;border-bottom: 1px solid rgb(219,219,219);">
@@ -34,11 +34,12 @@
                     </div>
                     <div class="m-t-24">
                         <div>
-                            <button (click)="fileInput.click()"
+                            <button (click)="fileInput.click()" class="font-14"
                                 style="background-color: rgb(0,149,246);border:none;color:#fff;border-radius: 8px;text-align: center;padding:7px 16px;cursor: pointer;font-weight: 600;">Selecciona
                                 del ordenador</button>
                             <form role="presentation"><input #fileInput accept="image/jpeg,image/png"
-                                    style="display:none !important" type="file" (change)="getImagePreview($event)">
+                                    style="display:none !important" type="file" (change)="getImagePreview($event)"
+                                    formControlName="image">
                             </form>
                         </div>
                     </div>
@@ -50,8 +51,8 @@
 
 
 
-    <div *ngIf="fileSelected"
-        style="width:100%;background-color: #fff;border:1px solid white;max-width: 640px;max-height: 600px;height:100%;border-radius: 8px;overflow: hidden;">
+    <div *ngIf="fileSelected && !settingsEnabled"
+        style="width:100%;background-color: #fff;max-width:640px;max-height: 600px;height:100%;border-radius: 8px;overflow: hidden;transition: all .2s ease-in-out;">
         <div class="first_page" style="width:100%;height:100%;">
             <header
                 style="height: 48px;display: flex;align-items: center;justify-content: center;border-bottom: 1px solid rgb(219,219,219);position:relative">
@@ -59,7 +60,7 @@
                     style="color:rgb(38,38,38);line-height: 24px;text-align: center;font-weight: 600;width:100%;">
                     <div style="display:flex;align-items: center;justify-content: space-between;padding:0 10px;">
 
-                        <button type="button"
+                        <button type="button" (click)="goToSelectImage()"
                             style="font-weight: 600;border:none;background-color: transparent;cursor: pointer"
                             class="publish_action_hover font-17"><i class="fa-solid fa-chevron-left"></i></button>
                         <div>
@@ -68,29 +69,88 @@
                             Confirmar selección
                         </div>
                         <div>
-                            <button type="button"
+                            <button type="button" (click)="goToSettingsPost()"
                                 style="font-weight: 600;border:none;background-color: transparent;cursor: pointer"
-                                class="publish_action_hover">Siguiente</button>
+                                class="publish_action_hover font-16 ">Siguiente</button>
                         </div>
                     </div>
                 </div>
             </header>
-            <div class="media">
-                <div *ngIf="fileSelected">
-                    <div *ngIf="fileSelected" style="height:100%;">
-                        <div [style.background]="'url('+fileSelected+')'">
+            <div class="media"
+                style="width:100%;height:100%;display: flex;align-items:center;transition: width .2s ease-in-out;">
+                <div style="width:100%;height:100%;background-repeat: no-repeat;background-size: cover;background-position: center;"
+                    [style.background-image]="'url('+fileSelected+')'">
+                </div>
+                <div class="media__settings" style="background-color:white;width:200px;" *ngIf="settingsEnabled">
+                    <div>
 
-                        </div>
-                        <!-- <img [src]="fileSelected" style="height:100%;object-fit: cover;object-position: center;"> -->
-                        <!-- <div style="
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    width:100%;height:100%;
-    overflow: hidden;" [style.background-image]="'url(' + fileSelected + ')'"></div> -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
+
+    <div *ngIf="fileSelected && settingsEnabled"
+        style="width:100%;background-color: #fff;max-height: 600px;height:100%;border-radius: 8px;overflow: hidden;transition: all .2s ease-in-out;"
+        [style.max-width.px]="settingsEnabled ? 940 : 640">
+        <div class="first_page" style="width:100%;height:100%;">
+            <header
+                style="height: 48px;display: flex;align-items: center;justify-content: center;border-bottom: 1px solid rgb(219,219,219);position:relative">
+                <div class="font-16 fontw-600"
+                    style="color:rgb(38,38,38);line-height: 24px;text-align: center;font-weight: 600;width:100%;">
+                    <div style="display:flex;align-items: center;justify-content: space-between;padding:0 10px;">
+
+                        <button type="button" (click)="goToSelectImage()"
+                            style="font-weight: 600;border:none;background-color: transparent;cursor: pointer"
+                            class="publish_action_hover font-17"><i class="fa-solid fa-chevron-left"></i></button>
+                        <div>
+                        </div>
+                        <div style="transform:translate(-50%,-50%);position:absolute;top:50%;left:50%;">
+                            Configura tu post
+                        </div>
+                        <div>
+                            <button type="button" (click)="onPublish()"
+                                style="font-weight: 600;border:none;background-color: transparent;cursor: pointer"
+                                class="publish_action_hover font-16 ">Publicar</button>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="media"
+                style="width:100%;height:100%;display: flex;align-items:center;transition: all ..2s ease-in-out;">
+                <div style="width:640px;height:100%;background-repeat: no-repeat;background-size: cover;background-position: center;"
+                    [style.background-image]="'url('+fileSelected+')'">
+                </div>
+                <div class="media__settings"
+                    style="background-color:white;width:300px;height:100%;transition: all ..2s ease-in-out;">
+                    <div style="display: flex;height:100%;padding:10px;">
+                        <header>
+                            <div>
+                                <div>
+                                    <a href="#" style="display:inline;pointer-events: none;">
+                                        <div style="display: flex;align-items:center;padding:10px;border-radius: 24px;">
+                                            <div style="margin-right: 9px;">
+                                                <div
+                                                    style="width: 24px;height:24px;border-radius: 100%;overflow: hidden;">
+                                                    <img [src]="user['profile'].profilePicture"
+                                                        style="width:100%;object-fit: cover;height: 100%;">
+                                                </div>
+                                            </div>
+                                            <div class="font-14" style="color:rgb(38,38,38);font-weight: 600;">
+                                                {{user['profile'].username}}
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div>
+                                    <textarea name="" id="" cols="30" rows="10" placeholder="Escribe un pie de foto..."
+                                        style="outline: none;border:none;" formControlName="message"></textarea>
+                                </div>
+                            </div>
+                        </header>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

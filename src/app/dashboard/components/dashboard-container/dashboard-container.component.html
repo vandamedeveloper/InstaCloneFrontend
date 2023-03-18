@@ -85,10 +85,11 @@
                 </div>
             </div>
         </div>
-        <div style="flex:1;display: flex;justify-content: center;overflow: scroll;" class="m-t-20">
+        <div style="flex:1;display: flex;justify-content: center;overflow: scroll;scrollbar-width: none;"
+            class="m-t-20">
             <div class="posts" style="max-width: 470px;width:100%;">
                 <div>
-                    <article style="border-bottom:1px solid rgb(219,219,219)">
+                    <article style="border-bottom:1px solid rgb(219,219,219)" *ngFor="let post of posts">
                         <div>
                             <div class="post__header">
                                 <div
@@ -103,7 +104,7 @@
                                         </div>
                                         <div>
                                             <a style="color:rgb(38,38,38);text-decoration: none;cursor: pointer;font-weight: 600;"
-                                                class="font-14" href="#">{{user['profile'].username}}</a>
+                                                class="font-14" href="#">{{post.user.username}}</a>
                                         </div>
                                     </header>
                                     <div style="    padding: 0;
@@ -265,7 +266,7 @@
                                         <a href="#"
                                             style="text-decoration: none;display:inline;background-color:transparent;">
                                             <div style="font-weight:600;color:rgb(38,38,38);" class="font-14">
-                                                <span>148</span>
+                                                <span>{{post.likes.length}}</span>
                                                 Me Gusta
                                             </div>
                                         </a>
@@ -278,14 +279,14 @@
                                                         <a href="#" style="text-decoration: none;">
                                                             <span
                                                                 style="display: inline;font-weight: 600;color:rgb(38,38,38)"
-                                                                class="font-14">louist91</span>
+                                                                class="font-14">{{post.user.username}}</span>
                                                         </a>
                                                     </div>
                                                 </div>
                                                 <span>&nbsp;</span>
                                                 <span>
                                                     <h1 style="color:rgb(38,38,38);font-weight:400;text-align: left;">
-                                                        Nice post!
+                                                        &nbsp;{{post.caption}}
                                                     </h1>
                                                 </span>
                                             </div>
@@ -319,4 +320,4 @@
 
 
 <!-- MODALS -->
-<app-create-post *ngIf="showCreateModal" (onMediaSelected)="onMediaSelected($event)"></app-create-post>
+<app-create-post *ngIf="showCreateModal" (onMediaSelected)="OnCreatePost($event)" [user]="user"></app-create-post>
