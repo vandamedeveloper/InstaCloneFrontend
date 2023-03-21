@@ -1,8 +1,8 @@
 <div class="container h-full">
     <div class="d-flex h-full">
         <div style="border-right:1px solid rgb(219,219,219);">
-            <div class="p-12 w-244 m-t-20">
-                <a role="link" tabindex="0">
+            <div class="p-12 w-244 m-t-20 menu-section">
+                <a role="link" tabindex="0" class="menu-section-item">
                     <div>
                         <div><svg aria-label="Instagram" color="rgb(38, 38, 38)" fill="rgb(38, 38, 38)" height="29"
                                 role="img" viewBox="32 4 113 32" width="103">
@@ -16,7 +16,7 @@
                     <div>
                         <a href="#" style="display:inline;">
                             <div style="display: flex;align-items:center;padding:10px;border-radius: 24px;"
-                                class="create_feed_btn">
+                                class="create_feed_btn menu-section-item-button">
                                 <div style="margin-right: 9px;">
                                     <svg aria-label="Inicio" class="_ab6-" color="rgb(38, 38, 38)"
                                         fill="rgb(38, 38, 38)" height="24" role="img" viewBox="0 0 24 24" width="24">
@@ -25,14 +25,15 @@
                                         </path>
                                     </svg>
                                 </div>
-                                <div class="font-16" style="color:rgb(38,38,38);font-weight: 400;">Inicio</div>
+                                <div class="font-16 menu-section-item" style="color:rgb(38,38,38);font-weight: 400;">
+                                    Inicio</div>
                             </div>
                         </a>
                     </div>
                     <div class="m-t-7">
                         <a href="#" style="display:inline;">
                             <div style="display: flex;align-items:center;padding:10px;border-radius: 24px;"
-                                class="create_feed_btn">
+                                class="create_feed_btn menu-section-item-button">
                                 <div style="margin-right: 9px;">
                                     <svg aria-label="Notificaciones" class="_ab6-" color="rgb(38, 38, 38)"
                                         fill="rgb(38, 38, 38)" height="24" role="img" viewBox="0 0 24 24" width="24">
@@ -41,14 +42,15 @@
                                         </path>
                                     </svg>
                                 </div>
-                                <div class="font-16" style="color:rgb(38,38,38);font-weight: 400;">Notificaciones</div>
+                                <div class="font-16 menu-section-item" style="color:rgb(38,38,38);font-weight: 400;">
+                                    Notificaciones</div>
                             </div>
                         </a>
                     </div>
                     <div class="m-t-7" (click)="showCreatePostModal()">
                         <a href="#" style="display:inline;">
                             <div style="display: flex;align-items:center;padding:10px;border-radius: 24px;"
-                                class="create_feed_btn">
+                                class="create_feed_btn menu-section-item-button">
                                 <div style="margin-right: 9px;">
                                     <svg aria-label="Nueva publicación" class="_ab6-" color="rgb(38, 38, 38)"
                                         fill="rgb(38, 38, 38)" height="24" role="img" viewBox="0 0 24 24" width="24">
@@ -64,21 +66,24 @@
                                             y2="17.455"></line>
                                     </svg>
                                 </div>
-                                <div class="font-16" style="color:rgb(38,38,38);font-weight: 400;">Crear</div>
+                                <div class="font-16 menu-section-item" style="color:rgb(38,38,38);font-weight: 400;">
+                                    Crear</div>
                             </div>
                         </a>
                     </div>
                     <div class="m-t-7">
                         <a href="#" style="display:inline;">
                             <div style="display: flex;align-items:center;padding:10px;border-radius: 24px;"
-                                class="create_feed_btn">
+                                class="create_feed_btn menu-section-item-button">
                                 <div style="margin-right: 9px;">
-                                    <div style="width: 24px;height:24px;border-radius: 100%;overflow: hidden;">
+                                    <div style="width: 24px;height:24px;border-radius: 100%;overflow: hidden;"
+                                        class="menu-section-item-button">
                                         <img [src]="user['profile'].profilePicture"
                                             style="width:100%;object-fit: cover;height: 100%;">
                                     </div>
                                 </div>
-                                <div class="font-16" style="color:rgb(38,38,38);font-weight: 400;">Perfil</div>
+                                <div class="font-16 menu-section-item" style="color:rgb(38,38,38);font-weight: 400;">
+                                    Perfil</div>
                             </div>
                         </a>
                     </div>
@@ -144,8 +149,8 @@
                             </div>
                             <div class="post__image"
                                 style="height:585px;border-radius: 4px;border:1px solid rgb(239,239,239);overflow: hidden;">
-                                <img [src]="user['profile'].profilePicture"
-                                    style="object-fit:cover;height:100%;max-width:100%">
+                                <img [src]="post.image.imageUrl"
+                                    style=" object-fit:cover;height:100%;width:100%;max-width:100%">
                             </div>
                             <div class="post__comments">
                                 <div>
@@ -314,10 +319,30 @@
                 </div>
             </div>
         </div>
-        <app-profile [user]="user" class="m-t-20 m-r-70"></app-profile>
+        <app-profile [user]="user" class="m-t-20 m-r-70 user-profile-section"></app-profile>
     </div>
 </div>
 
 
 <!-- MODALS -->
 <app-create-post *ngIf="showCreateModal" (onMediaSelected)="OnCreatePost($event)" [user]="user"></app-create-post>
+
+
+<div *ngIf="loading"
+    style="position:absolute;top:0;left:0;display:flex;align-items:center;justify-content:center;background-color:rgba(0,0,0,0.6);width:100vw;height:100vh;padding:0;margin:0;box-sizing: border-box;transition: width .2s ease-in-out;">
+    <div style="width:100%;background-color: #fff;max-width: 340px;max-height: 600px;border-radius: 8px;">
+        <div class="first_page" style="width:100%;height:100%;">
+            <header
+                style="height: 48px;display: flex;align-items: center;justify-content: center;border-bottom: 1px solid rgb(219,219,219);">
+                <div class="font-16 fontw-600"
+                    style="color:rgb(38,38,38);line-height: 24px;text-align: center;font-weight: 600;">
+                    Publicando
+                </div>
+            </header>
+            <div class="media"
+                style="width:100%;height:100px;display: flex;align-items: center;justify-content: center;">
+                <i class="fa-solid fa-spinner fa-spin font-30"></i>
+            </div>
+        </div>
+    </div>
+</div>

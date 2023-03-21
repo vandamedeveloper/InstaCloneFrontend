@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { map, Observable } from 'rxjs';
 import { PostService } from 'src/app/shared/api/posts/post.service';
 import { Post } from 'src/app/shared/models/Post';
 import { UserProfile } from 'src/app/shared/models/UserProfile';
@@ -19,7 +21,8 @@ export class DashboardContainerComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
-    private _postService: PostService
+    private _postService: PostService,
+    private _httpClient: HttpClient
   ) {}
 
   ngOnInit(): void {
@@ -49,7 +52,7 @@ export class DashboardContainerComponent implements OnInit {
     this.loading = true;
     const formData = new FormData();
     formData.append('caption', event.message);
-    formData.append('image', event.image);
+    formData.append('image', event.image, event.image.name);
 
     this._postService.createPost(formData).subscribe({
       next: () => {
@@ -63,5 +66,16 @@ export class DashboardContainerComponent implements OnInit {
         console.log(error);
       },
     });
+  }
+
+  getImage(filename: string) {
+    this._httpClient
+      .get<any>(`http://localhost:3000/api/images/${filename}`)
+      .subscribe({
+        next: (data) => {
+          return data;
+        },
+        error: (error) => (this.error = error),
+      });
   }
 }
